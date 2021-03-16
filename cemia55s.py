@@ -201,7 +201,7 @@ def nucleus_filtering(fullpath_input, abspath, intensity_thresh,size_thresh,show
     nuc_bw = cv2.medianBlur(nuc_bw,5)
 
 
-    labels = measure.label(nuc_bw, neighbors=8, background=0)
+    labels = measure.label(nuc_bw, connectivity=2, background=0)
     mask1 = np.zeros(nuc_bw.shape, dtype="uint8")
 
     for label in np.unique(labels):
@@ -224,7 +224,7 @@ def nucleus_filtering(fullpath_input, abspath, intensity_thresh,size_thresh,show
     kernel_mask1_erode = np.ones((5,5),np.uint8)
     mask1 = cv2.erode(mask1,kernel_mask1_erode,iterations = 1)
 
-    labels = measure.label(mask1, neighbors=8, background=0)
+    labels = measure.label(mask1, connectivity=2, background=0)
     mask = np.zeros(mask1.shape, dtype="uint8")
 
     for label in np.unique(labels):
@@ -294,7 +294,7 @@ def behind_the_moon_filter(img, thresh,thresh2, thresh3,bg_harshness=-0.5,sig_ha
         th_lev = th_lev * 0.9
 
     (thresh_blue, blue_bw) = cv2.threshold(blue, th_lev, 255, cv2.THRESH_BINARY)
-    labels = measure.label(blue_bw, neighbors=8, background=0)
+    labels = measure.label(blue_bw, connectivity=2, background=0)
 
     # Use the largest mask to sample background (in case there is noise in nucleus channel)
     numPixels = []
@@ -674,7 +674,7 @@ def auto_segmentation(fullpath_input, abspath, namestring,filt,showimg,dilation_
     #print('\nSampled threshold for empty cell removal: ',sig)
 
     # Detecting and removing deserted cells
-    labels = measure.label(nuclear_mask, neighbors=8, background=0)
+    labels = measure.label(nuclear_mask, connectivity=2, background=0)
 
     mask = np.zeros(nuclear_mask.shape, dtype="uint8")
     mask_blue = np.zeros(nuclear_mask.shape, dtype="uint8")
@@ -709,7 +709,7 @@ def auto_segmentation(fullpath_input, abspath, namestring,filt,showimg,dilation_
 
     nuclei_centers = []
 
-    labels = measure.label(np.array(mask_blue), neighbors=8, background=0)
+    labels = measure.label(np.array(mask_blue), connectivity=2, background=0)
     nuc_labels = len(np.unique(labels))
 
     lbl = np.zeros(mask_blue.shape, dtype="uint8")
@@ -811,7 +811,7 @@ def auto_segmentation(fullpath_input, abspath, namestring,filt,showimg,dilation_
             mitoLabels = measure.label(mito_bw, connectivity=2)
             mitoProperties = regionprops(mitoLabels)
 
-            nucLabels = measure.label(mask_blue, neighbors=8, background=0)
+            nucLabels = measure.label(mask_blue, connectivity=2, background=0)
             nucProperties = regionprops(nucLabels)
             print('Number of Nuclei: ', len(nucProperties))
 
