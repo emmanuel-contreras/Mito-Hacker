@@ -184,6 +184,10 @@ def nucleus_filtering(fullpath_input, abspath, intensity_thresh,size_thresh,show
     nuc_gray = cv2.cvtColor(image_cp0, cv2.COLOR_BGR2GRAY)
     #nuc_gray = cv2.GaussianBlur(nuc_gray,(5,5),5)
     nuc_gray_cp = deepcopy(nuc_gray)
+    
+    # make sure nuclei mask is not empty
+    if np.sum(nuc_gray) == 0:
+        print(f"Error: no data found in the nuclei channel")
 
     if diffused:
         nuc_gray_tmp = np.reshape(nuc_gray,-1)
