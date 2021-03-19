@@ -204,9 +204,8 @@ def nucleus_filtering(
 
     # nuclear mask is binary, likely from Nuc Adder or other mask
     if len(np.unique(image_cp0)) == 2:
-        image_cp0[..., 0] = (
-            image_cp0[..., 0] * image[..., 1]
-        )  # mask info on green channel
+        # mask info on mito channel (green)
+        image_cp0[..., 0] = image_cp0[..., 0] * image[..., 1] 
     #####
 
     # Cleaning nuclei channel
