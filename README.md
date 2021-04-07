@@ -1,3 +1,7 @@
+### CHANGES FOR SKALA LAB 
+* Nuc Adder was fixed to show nuclei area as you click through the opencv window
+* A jupyter cell was added to Cell Catcher to be able to export intermediates while leaving the rest of the code unmodified. 
+---
 # Mito Hacker
 
 [![N|Solid](https://raw.githubusercontent.com/Mitogenie/misc/master/misc/KLab.png)](https://mic.med.virginia.edu/kashatus/)
